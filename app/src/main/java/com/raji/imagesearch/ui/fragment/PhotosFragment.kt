@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.raji.imagesearch.R
 import com.raji.imagesearch.databinding.FragmentPhotosBinding
+import com.raji.imagesearch.ui.PhotoLoadStateAdapter
 import com.raji.imagesearch.ui.PhotosAdapter
 import com.raji.imagesearch.ui.viewmodel.ImageViewModel
 import dagger.hilt.EntryPoint
@@ -26,10 +27,13 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
         val adapter = PhotosAdapter()
         binding.apply {
             recyclerView.setHasFixedSize(true)
-            recyclerView.adapter = adapter
+            recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
+                header = PhotoLoadStateAdapter { adapter.retry() },
+                footer = PhotoLoadStateAdapter { adapter.retry() }
+            )
         }
         viewModel.photos.observe(viewLifecycleOwner) {
-            adapter.submitData(viewLifecycleOwner.lifecycle,it)
+            adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
 
