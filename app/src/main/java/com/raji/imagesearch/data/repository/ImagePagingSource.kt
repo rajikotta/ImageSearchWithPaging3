@@ -19,8 +19,9 @@ class ImagePagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UnsplashPhoto> {
         val position = params.key ?: UNSPLASH_INITIAL_PAGE_INDEX
-        val result = apiService.searchPhotos(query, position, params.loadSize).results
         return try {
+            val result = apiService.searchPhotos(query, position, params.loadSize).results
+
             LoadResult.Page(
                 data = result,
                 prevKey = if (position == UNSPLASH_INITIAL_PAGE_INDEX) null else position - 1,

@@ -13,7 +13,7 @@ class ImageRepository @Inject constructor(private val apiService: ApiService) {
     fun getSearchResult(query: String) =
         Pager(
             config = PagingConfig(
-                pageSize = 20,
+                pageSize = 1,
                 maxSize = 100,
                 enablePlaceholders = false
             ),
