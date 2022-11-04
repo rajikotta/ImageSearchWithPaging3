@@ -1,7 +1,6 @@
 package com.raji.imagesearch.data.request
 
-import androidx.viewbinding.BuildConfig
-import com.raji.imagesearch.BuildConfig.UNSPLASH_ACCESS_KEY
+import com.raji.imagesearch.BuildConfig
 import com.raji.imagesearch.data.models.UnsplashResponse
 import retrofit2.http.GET
 import retrofit2.http.Headers
