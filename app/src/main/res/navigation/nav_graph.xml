@@ -7,5 +7,17 @@
     <fragment
         android:id="@+id/photosFragment"
         android:name="com.raji.imagesearch.ui.fragment.PhotosFragment"
-        android:label="PhotosFragment" />
+        android:label="PhotosFragment" >
+        <action
+            android:id="@+id/action_photosFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.raji.imagesearch.ui.fragment.DetailFragment"
+        android:label="Photo" >
+        <argument
+            android:name="photo"
+            app:argType="com.raji.imagesearch.data.models.UnsplashPhoto" />
+    </fragment>
 </navigation>

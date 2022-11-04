@@ -8,13 +8,14 @@ import android.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.raji.imagesearch.R
+import com.raji.imagesearch.data.models.UnsplashPhoto
 import com.raji.imagesearch.databinding.FragmentPhotosBinding
 import com.raji.imagesearch.ui.PhotoLoadStateAdapter
 import com.raji.imagesearch.ui.PhotosAdapter
 import com.raji.imagesearch.ui.viewmodel.ImageViewModel
-import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,7 +30,14 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentPhotosBinding.bind(view)
 
-        val adapter = PhotosAdapter()
+        val adapter = PhotosAdapter(object :PhotosAdapter.OnItemClickListener{
+            override fun OnClick(photo: UnsplashPhoto) {
+
+                val action = PhotosFragmentDirections.actionPhotosFragmentToDetailFragment(photo)
+                findNavController().navigate(action)
+            }
+
+        })
         binding.apply {
             recyclerView.setHasFixedSize(true)
             recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(

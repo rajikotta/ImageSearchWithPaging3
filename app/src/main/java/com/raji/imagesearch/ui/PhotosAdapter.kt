@@ -5,16 +5,33 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.raji.imagesearch.R
 import com.raji.imagesearch.data.models.UnsplashPhoto
 import com.raji.imagesearch.databinding.ItemPhotoBinding
 
-class PhotosAdapter :
+class PhotosAdapter(private val onItemClickListener: OnItemClickListener) :
     PagingDataAdapter<UnsplashPhoto, PhotosAdapter.PhotosViewHolder>(PHOTO_COMPARATOR) {
+
+    interface OnItemClickListener {
+        fun OnClick(photo: UnsplashPhoto)
+    }
+
     inner class PhotosViewHolder(private val binding: ItemPhotoBinding) : ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != NO_POSITION) {
+                    getItem(position)?.let {
+                        onItemClickListener.OnClick(it)
+                    }
+                }
+            }
+        }
+
         @SuppressLint("PrivateResource")
         fun onBind(photo: UnsplashPhoto) {
             binding.apply {
