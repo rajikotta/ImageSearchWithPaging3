@@ -10,12 +10,12 @@ plugins {
 
 android {
     namespace 'com.raji.imagesearch'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.raji.imagesearch"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
         buildConfigField("String", "UNSPLASH_ACCESS_KEY", unsplash_key)
